@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Test to see if the modified cpplint works
+
+CMD="python3 cpplint.py $1"
+TMP="tmp.log"
+
+echo "Running command $CMD..."
+touch $TMP
+$CMD |& grep "include_what_you_use" |& tee $TMP
+
+echo "IWYU errors found: $(cat $TMP | wc -l)"
+rm $TMP
+
+echo "Done."
+
